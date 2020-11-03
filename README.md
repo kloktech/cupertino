@@ -23,6 +23,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
 ## Deployment
+Used `ng add angular-cli-ghpages` to add function to publish to github pages, branch ghpages
 `ng deploy --cname merits.bwnc.org`
 
 This pushes to github ghpage branch which the repo should have enabled github page.

@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>善行紀錄</h1>
+<div mat-dialog-content>
+  <p>姓名?</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.name">
+  </mat-form-field>
+  <p>電子郵箱?</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.email">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" [disabled]="!(data.name && data.email)" [mat-dialog-close]="data">輸入</button>
+</div>

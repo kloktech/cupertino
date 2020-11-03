@@ -6,21 +6,21 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 
-// import { BrowserAnimationsModule,
-//   MatToolbarModule,
-//   MatIconModule,
-//   MatCardModule,
-//   MatButtonModule,
-//   MatProgressSpinnerModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
+import { NameAndEmailModalComponent } from './name-and-email-modal/name-and-email-modal.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NameAndEmailModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MaterialModule
     // BrowserAnimationsModule,
     // MatToolbarModule,
     // MatIconModule,

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {  throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { environment } from './../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { retry, catchError } from 'rxjs/operators';
 export class ApiService {
 
   // private SERVICE_URL = 'https://jsonplaceholder.typicode.com/users';
-  private SERVICE_URL = '/api/goodDeeds';
+  private SERVICE_URL = environment.goodDeedsApiURL;
 
   constructor(public httpClient: HttpClient){}
 
@@ -29,5 +30,10 @@ export class ApiService {
     return this.httpClient.get(this.SERVICE_URL).pipe(catchError(this.handleError));
   }
 
-  
+  public create(name: string, email: string, deedType: number){
+    return this.httpClient.post(this.SERVICE_URL,
+      {name: name, email: email, deedType: deedType})
+      .pipe(catchError(this.handleError));
+  }
+
 }

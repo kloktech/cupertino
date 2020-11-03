@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  goodDeedsApiURL: 'https://gooddeed.bwnc.org/api/goodDeeds'
 };

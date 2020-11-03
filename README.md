@@ -22,6 +22,13 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
+## Deployment
+`ng deploy --cname gooddeeds.bwnc.org`
+
+This pushes to github ghpage branch which the repo should have enabled github page.
+
+This works because angular is for frontend only, everything can be loaded off github.  Just need to ensure any service call can be done by the client.
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

@@ -3,6 +3,8 @@ import { ApiService } from './api.service';
 import { CookieService } from 'ngx-cookie-service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { NameAndEmailModalComponent } from './name-and-email-modal/name-and-email-modal.component';
+import { Title } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-root',
@@ -35,11 +37,12 @@ export class AppComponent {
   constructor(
     private apiService: ApiService,
     private cookieService: CookieService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private titleService: Title
   ) { }
 
 	ngOnInit() {
-    this.cookieService.set('Test', 'Hello World');
+    this.titleService.setTitle( "北加庫市善業集聚" );
     if (this.cookieService.check('name')) {
       this.name = this.cookieService.get('name');
     }

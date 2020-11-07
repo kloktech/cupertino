@@ -22,6 +22,15 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
+## Emulate Production
+In one terminal, run continuous build for production
+`ng build --prod --watch`
+
+In another terminal, run the web server to serve production build
+`npx lite-server --baseDir="dist/frontend"`
+
+It will utilize production environment variables for mongo, cors, etc... Make sure local instance can access api via CORS.
+
 ## Deployment
 ### Staging
 `ng deploy --repo=git@github.com:kloktech-mark/cupertino.git --base-href=/cupertino/`

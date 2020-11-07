@@ -19,3 +19,8 @@ td, th {
   /* justify-content: center; */
   /* align-items: center; */
 }
+
+.demo-chart {
+  height: 500px;
+  padding-top: 10px;
+}

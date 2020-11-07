@@ -12,6 +12,7 @@ import { NameAndEmailModalComponent } from './name-and-email-modal/name-and-emai
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MainComponent } from './main.component';
 import { DatePipe } from '@angular/common';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,9 @@ import { DatePipe } from '@angular/common';
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    }),
     // BrowserAnimationsModule,
     // MatToolbarModule,
     // MatIconModule,

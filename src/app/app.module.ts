@@ -9,18 +9,23 @@ import { CookieService } from 'ngx-cookie-service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { NameAndEmailModalComponent } from './name-and-email-modal/name-and-email-modal.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { MainComponent } from './main.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NameAndEmailModalComponent
+    NameAndEmailModalComponent,
+    DashboardComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
     // BrowserAnimationsModule,
     // MatToolbarModule,
     // MatIconModule,
@@ -28,7 +33,7 @@ import { NameAndEmailModalComponent } from './name-and-email-modal/name-and-emai
     // MatCardModule,
     // MatProgressSpinnerModule
   ],
-  providers: [CookieService],
+  providers: [CookieService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

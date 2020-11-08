@@ -1,5 +1,5 @@
 // import { Component, OnInit } from '@angular/core';
-import {AfterViewInit, Component, ViewChild, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import { ApiService } from '../api.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
@@ -11,7 +11,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements AfterViewInit, OnInit  {
+export class DashboardComponent implements AfterViewInit  {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -24,7 +24,7 @@ export class DashboardComponent implements AfterViewInit, OnInit  {
     5: 'iPray',
     6: '誦般若經',
     7: '三十五佛懺',
-    8: '背誦廣論',
+    8: '背誦經典',
     9: '三多'
   }
   // dataSource = new MatTableDataSource(ELEMENT_DATA);
@@ -39,9 +39,12 @@ export class DashboardComponent implements AfterViewInit, OnInit  {
 
   typesOptions = {
     title: {
-      text: '總善行 = ',
+      text: '庫市教室購買 善行迴向累積: ',
       subtext: 'Rejoice!',
-      x: 'center'
+      x: 'center',
+      textStyle: {
+        fontSize: 30
+      }
     },
     tooltip: {
       trigger: 'item',
@@ -66,7 +69,7 @@ export class DashboardComponent implements AfterViewInit, OnInit  {
 
   daysOptions = {
     title: {
-      text: '每日善行',
+      text: '每日善行量',
       x: 'center'
     },
     xAxis: {
@@ -129,10 +132,12 @@ export class DashboardComponent implements AfterViewInit, OnInit  {
 
   }
 
-  ngOnInit(): void {
+
+  ngAfterViewInit() {
     this.apiService.get().subscribe((merits: any[])=>{
       this.dataSource = new MatTableDataSource(merits);
       this.dataSource.paginator = this.paginator;
+      // this.sort.sort(({ id: 'date', start: 'desc'}) as MatSortable);
       this.dataSource.sort = this.sort;
       merits.forEach(merit => {
         this._date = this.datePipe.transform(merit.date, 'yyyy-MM-dd');
@@ -165,7 +170,6 @@ export class DashboardComponent implements AfterViewInit, OnInit  {
           })
       };
       this.typesOptions = Object.assign({}, this.typesOptions);
-
 
       for (let key in this.meritsByDays) {
         let count = this.meritsByDays[key];
@@ -200,10 +204,6 @@ export class DashboardComponent implements AfterViewInit, OnInit  {
     () => {
       console.log('Completed');
     });
-	}
-
-  ngAfterViewInit() {
-
   }
 
   applyFilter(event: Event) {

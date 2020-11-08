@@ -9,14 +9,14 @@
 <div class="mat-elevation-z8" style="text-align: center;">
   <mat-form-field>
     <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. çŽ‹å°�æ˜Ž" #input>
   </mat-form-field>
 </div>
 
 <!-- <h1 class="md-display-4">Total: {{meritsTotal}}</h1> -->
 
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort>
+  <table mat-table [dataSource]="dataSource" matSort matSortActive="date" matSortDirection="desc">
 
     <!-- Date Column -->
     <ng-container matColumnDef="date">
@@ -50,6 +50,6 @@
       <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
     </tr>
   </table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[10, 25, 50]"></mat-paginator>
 
 </div>

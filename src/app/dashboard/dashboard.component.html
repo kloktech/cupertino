@@ -7,16 +7,14 @@
 
 <br/>
 <div class="mat-elevation-z8" style="text-align: center;">
+  <h3 class="md-display-2" style="padding-top: 10px">最新善行紀錄</h3>
   <mat-form-field>
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. çŽ‹å°�æ˜Ž" #input>
+    <mat-label>搜尋</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. 王小明" #input>
   </mat-form-field>
 </div>
-
-<!-- <h1 class="md-display-4">Total: {{meritsTotal}}</h1> -->
-
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort matSortActive="date" matSortDirection="desc">
+  <table mat-table [dataSource]="dataSource" matSort matSortActive="date" matSortDirection="desc" >
 
     <!-- Date Column -->
     <ng-container matColumnDef="date">

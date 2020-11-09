@@ -5,6 +5,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import { DatePipe } from '@angular/common';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -129,11 +130,39 @@ export class DashboardComponent implements AfterViewInit  {
     private apiService: ApiService,
     private datePipe: DatePipe
   ) {
-
+    // Update feed in certain interval.
+    // (malin) This is amazing that this can be done so elegantly.
+    interval(300000).subscribe(() => this.updateData());
   }
 
 
   ngAfterViewInit() {
+    this.updateData();
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  updateData() {
+    // reset
+    this.meritsByDays = {};
+    this.meritsByTypes = {};
+    this.meritsByPeople = {};
+    this.meritsTotal = 0;
+    this.typesOptions.title.text = '庫市教室購買 善行迴向累積: ';
+    this.typesOptions.legend.data = [];
+    this.typesOptions.series[0].data = [];
+    this.daysOptions.xAxis.data = [];
+    this.daysOptions.series[0].data = [];
+    this.peopleOptions.xAxis.data = [];
+    this.peopleOptions.series[0].data = [];
+
     this.apiService.get().subscribe((merits: any[])=>{
       this.dataSource = new MatTableDataSource(merits);
       this.dataSource.paginator = this.paginator;
@@ -197,21 +226,12 @@ export class DashboardComponent implements AfterViewInit  {
       });
       this.peopleOptions = Object.assign({}, this.peopleOptions);
 
-		},
+    },
     (err) => {
       console.log('Error: ' + err);
     },
     () => {
       console.log('Completed');
     });
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 }

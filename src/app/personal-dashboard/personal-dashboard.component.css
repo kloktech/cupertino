@@ -1,0 +1,31 @@
+/* Structure */
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 95%;
+}
+
+td, th {
+  width: 25%;
+}
+
+.mat-elevation-z8 {
+  width: 90%;
+  margin: 0 auto;
+  /* text-align: center; */
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+
+.demo-chart {
+  height: 600px;
+  padding-top: 10px;
+}
+
+.modal {
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}

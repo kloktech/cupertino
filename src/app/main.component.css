@@ -107,3 +107,13 @@ html,body {
     background-color: #4CAF50;
     color: white;
   }
+
+.mat-flat-button {
+  margin: 3px;
+}
+
+.reset-user {
+  position: absolute;
+    top: 0px;
+    right: 0px;
+}

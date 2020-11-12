@@ -13,12 +13,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MainComponent } from './main.component';
 import { DatePipe } from '@angular/common';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { PersonalDashboardComponent } from './personal-dashboard/personal-dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NameAndEmailModalComponent,
     DashboardComponent,
+    PersonalDashboardComponent,
     MainComponent
   ],
   imports: [

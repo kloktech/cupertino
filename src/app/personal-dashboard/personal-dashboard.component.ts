@@ -1,22 +1,30 @@
-// import { Component, OnInit } from '@angular/core';
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import { DatePipe } from '@angular/common';
 import { interval } from 'rxjs';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-personal-dashboard',
+  templateUrl: './personal-dashboard.component.html',
+  styleUrls: ['./personal-dashboard.component.css'],
+  host: {
+    '[class.modal-content]': 'true'
+  }
 })
-export class DashboardComponent implements AfterViewInit  {
+export class PersonalDashboardComponent implements OnInit {
+
+  name: string;
+  email: string;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['date', 'name', 'deedType'];
+  displayedColumns: string[] = ['date', 'deedType'];
   deedMapping = {
     1: '供燈水花香',
     2: '聽廣海明月',
@@ -40,7 +48,7 @@ export class DashboardComponent implements AfterViewInit  {
 
   typesOptions = {
     title: {
-      text: '庫市教室購買 善行迴向累積: ',
+      text: '庫市購買 個人善行累積: ',
       subtext: 'Rejoice!',
       x: 'center',
       textStyle: {
@@ -128,17 +136,20 @@ export class DashboardComponent implements AfterViewInit  {
 
   constructor(
     private apiService: ApiService,
-    private datePipe: DatePipe
-  ) {
-    // Update feed in certain interval.
-    // (malin) This is amazing that this can be done so elegantly.
-    interval(300000).subscribe(() => this.updateData());
-  }
+    private cookieService: CookieService,
+    private datePipe: DatePipe,
+    public dialog: MatDialog,
+  ) { }
 
-
-  ngAfterViewInit() {
+	ngOnInit() {
+    if (this.cookieService.check('name')) {
+      this.name = this.cookieService.get('name');
+    }
+    if (this.cookieService.check('email')) {
+      this.email = this.cookieService.get('email');
+    }
     this.updateData();
-  }
+	}
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -155,7 +166,7 @@ export class DashboardComponent implements AfterViewInit  {
     this.meritsByTypes = {};
     this.meritsByPeople = {};
     this.meritsTotal = 0;
-    this.typesOptions.title.text = '庫市教室購買 善行迴向累積: ';
+    this.typesOptions.title.text = '庫市購買 個人善行累積: ';
     this.typesOptions.legend.data = [];
     this.typesOptions.series[0].data = [];
     this.daysOptions.xAxis.data = [];
@@ -169,21 +180,25 @@ export class DashboardComponent implements AfterViewInit  {
       // this.sort.sort(({ id: 'date', start: 'desc'}) as MatSortable);
       this.dataSource.sort = this.sort;
       merits.forEach(merit => {
-        this._date = this.datePipe.transform(merit.date, 'yyyy-MM-dd');
-        if ( typeof this.meritsByTypes[merit.deedType] === 'undefined' ) {
-          this.meritsByTypes[merit.deedType] = 0;
-        }
-        if ( typeof this.meritsByDays[this._date] === 'undefined' ) {
-          this.meritsByDays[this._date] = 0;
-        }
-        if ( typeof this.meritsByPeople[merit.name] === 'undefined' ) {
-          this.meritsByPeople[merit.name] = 0;
-        }
-        this.meritsByTypes[merit.deedType]++;
-        this.meritsByDays[this._date]++;
-        this.meritsByPeople[merit.name]++;
 
-        this.meritsTotal++;
+        if ( merit.name === this.name && merit.email === this.email ) {
+          this._date = this.datePipe.transform(merit.date, 'yyyy-MM-dd');
+          if ( typeof this.meritsByTypes[merit.deedType] === 'undefined' ) {
+            this.meritsByTypes[merit.deedType] = 0;
+          }
+          if ( typeof this.meritsByDays[this._date] === 'undefined' ) {
+            this.meritsByDays[this._date] = 0;
+          }
+          if ( typeof this.meritsByPeople[merit.name] === 'undefined' ) {
+            this.meritsByPeople[merit.name] = 0;
+          }
+          this.meritsByTypes[merit.deedType]++;
+          this.meritsByDays[this._date]++;
+          this.meritsByPeople[merit.name]++;
+
+          this.meritsTotal++;
+
+        }
       });
 
       // Adding total to first graph

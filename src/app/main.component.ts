@@ -3,6 +3,7 @@ import { ApiService } from './api.service';
 import { CookieService } from 'ngx-cookie-service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { NameAndEmailModalComponent } from './name-and-email-modal/name-and-email-modal.component';
+import { PersonalDashboardComponent } from './personal-dashboard/personal-dashboard.component';
 
 @Component({
   selector: 'app-main',
@@ -71,7 +72,7 @@ export class MainComponent implements OnInit {
 
   askForInput() {
     const dialogRef = this.dialog.open(NameAndEmailModalComponent, {
-      width: '350px',
+      width: '250px',
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -81,6 +82,13 @@ export class MainComponent implements OnInit {
         this.cookieService.set('name', this.name);
         this.cookieService.set('email', this.email);
       }
+    });
+  }
+
+  personalDashboard() {
+    const dialogRef = this.dialog.open(PersonalDashboardComponent, {
+      width: '600px',
+      data: {}
     });
   }
 

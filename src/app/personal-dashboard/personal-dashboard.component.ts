@@ -48,7 +48,7 @@ export class PersonalDashboardComponent implements OnInit {
 
   typesOptions = {
     title: {
-      text: '庫市購買 個人善行累積: ',
+      text: '庫市購買 善行累積: ',
       subtext: 'Rejoice!',
       x: 'center',
       textStyle: {
@@ -166,7 +166,7 @@ export class PersonalDashboardComponent implements OnInit {
     this.meritsByTypes = {};
     this.meritsByPeople = {};
     this.meritsTotal = 0;
-    this.typesOptions.title.text = '庫市購買 個人善行累積: ';
+    this.typesOptions.title.text = '庫市購買 善行累積: ';
     this.typesOptions.legend.data = [];
     this.typesOptions.series[0].data = [];
     this.daysOptions.xAxis.data = [];

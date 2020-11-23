@@ -49,7 +49,7 @@ export class PersonalDashboardComponent implements OnInit {
   typesOptions = {
     title: {
       text: '庫市購買 善行累積: ',
-      subtext: 'Rejoice!',
+      subtext: '',
       x: 'center',
       textStyle: {
         fontSize: 30
@@ -167,6 +167,7 @@ export class PersonalDashboardComponent implements OnInit {
     this.meritsByPeople = {};
     this.meritsTotal = 0;
     this.typesOptions.title.text = '庫市購買 善行累積: ';
+    this.typesOptions.title.subtext = '隨喜 ' + this.name;
     this.typesOptions.legend.data = [];
     this.typesOptions.series[0].data = [];
     this.daysOptions.xAxis.data = [];
@@ -175,13 +176,11 @@ export class PersonalDashboardComponent implements OnInit {
     this.peopleOptions.series[0].data = [];
 
     this.apiService.get().subscribe((merits: any[])=>{
-      this.dataSource = new MatTableDataSource(merits);
-      this.dataSource.paginator = this.paginator;
-      // this.sort.sort(({ id: 'date', start: 'desc'}) as MatSortable);
-      this.dataSource.sort = this.sort;
+      let personalMerits = []
       merits.forEach(merit => {
 
         if ( merit.name === this.name && merit.email === this.email ) {
+          personalMerits.push(merit);
           this._date = this.datePipe.transform(merit.date, 'yyyy-MM-dd');
           if ( typeof this.meritsByTypes[merit.deedType] === 'undefined' ) {
             this.meritsByTypes[merit.deedType] = 0;
@@ -200,7 +199,11 @@ export class PersonalDashboardComponent implements OnInit {
 
         }
       });
+      this.dataSource = new MatTableDataSource(personalMerits);
 
+      this.dataSource.paginator = this.paginator;
+      // this.sort.sort(({ id: 'date', start: 'desc'}) as MatSortable);
+      this.dataSource.sort = this.sort;
       // Adding total to first graph
       this.typesOptions.title.text += this.meritsTotal;
 

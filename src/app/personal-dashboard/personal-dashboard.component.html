@@ -1,4 +1,4 @@
-<div class='modal'>
+<div class='modal' *ngIf=name>
   <div echarts [options]="typesOptions" class="demo-chart"></div>
 
   <div echarts [options]="daysOptions" class="demo-chart"></div>
@@ -37,4 +37,8 @@
     <mat-paginator [pageSizeOptions]="[10, 25, 50]"></mat-paginator>
 
   </div>
+</div>
+
+<div class='modal' *ngIf=!name>
+需要至少紀錄一條善行。<a href="/">點此紀錄</a>
 </div>

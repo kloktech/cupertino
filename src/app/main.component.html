@@ -3,10 +3,12 @@
       <h1 class="mat-display-1">庫市道場購買需要我們</h1><br/>
       <div *ngIf="name">歡迎回來 {{name}}
 
-      <button mat-flat-button color="primary" (click)=personalDashboard()>善行分析</button>
+      <button mat-flat-button color="primary" (click)=personalDashboard()>個人分析</button>
+      <button mat-flat-button color="primary" (click)="goToLink('/dashboard')">總體報表</button>
       </div>
-      <button *ngIf="name" mat-flat-button class='reset-user' color="warn" (click)=resetCookies()>重設紀錄者</button>
-
+      <div class='reset-user'>
+        <button *ngIf="name" mat-flat-button color="warn" (click)=resetCookies()>重設紀錄者</button>
+      </div>
       希求大家善行的供養來迴向庫市道場購買成辦。<br/>
       滑鼠指向每一個方塊即可一起造共業。<br/>
       每天將您的善行加入道場購買共業之中。

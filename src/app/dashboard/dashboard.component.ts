@@ -68,6 +68,36 @@ export class DashboardComponent implements AfterViewInit  {
     ]
   };
 
+  daysAccuOptions = {
+    title: {
+      text: '善行累積量',
+      x: 'center'
+    },
+    xAxis: {
+      type: 'category',
+      data: [],
+      boundaryGap: false,
+    },
+    yAxis: {
+      type: 'value',
+      // boundaryGap: false
+    },
+    tooltip: {
+      trigger: 'item',
+      showDelay: 0,
+      transitionDuration: 0.2,
+      formatter: function (params) {
+        return `<b>${params['name']}</b> = ${params['value']}`;
+      }
+    },
+    series: [
+      {
+        data: [],
+        type: 'bar',
+      },
+    ],
+  };
+
   daysOptions = {
     title: {
       text: '每日善行量',
@@ -125,6 +155,8 @@ export class DashboardComponent implements AfterViewInit  {
       },
     ],
   };
+
+  totalCount = [];
 
   constructor(
     private apiService: ApiService,
@@ -199,15 +231,21 @@ export class DashboardComponent implements AfterViewInit  {
           })
       };
       this.typesOptions = Object.assign({}, this.typesOptions);
-
+      let total = 0;
       for (let key in this.meritsByDays) {
         let count = this.meritsByDays[key];
         this.daysOptions.xAxis.data.push(key);
         this.daysOptions.series[0].data.push(count);
+        total += count;
+        this.totalCount.push([key, total]);
+        this.daysAccuOptions.xAxis.data.push(key);
+        this.daysAccuOptions.series[0].data.push(total);
       };
+
       // Array push doesn't trigger Angular's change detection
       // So this is doing that assign again to let echart detect change.
       this.daysOptions = Object.assign({}, this.daysOptions);
+      this.daysAccuOptions = Object.assign({}, this.daysAccuOptions);
 
       // Merits By Days
       var tmp = this.meritsByPeople;
@@ -232,5 +270,7 @@ export class DashboardComponent implements AfterViewInit  {
     () => {
       console.log('Completed');
     });
+    console.log(this.daysOptions);
+    console.log(this.daysAccuOptions);
   }
 }

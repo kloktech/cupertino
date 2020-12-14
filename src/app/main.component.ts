@@ -123,4 +123,8 @@ export class MainComponent implements OnInit {
       this.personalGoodDeeds = { ...this.personalGoodDeedsTmp };
 		})
   }
+
+  goToLink(url: string){
+    window.open(url, "_blank");
+  }
 }
